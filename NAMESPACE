@@ -1,0 +1,5 @@
+importFrom("grDevices", "dev.new")
+importFrom("graphics", "legend", "lines", "points")
+importFrom("stats", "ccf", "runif", "sd")
+importFrom("utils", "read.csv", "write.table")
+export(old.susy)

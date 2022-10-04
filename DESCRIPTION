@@ -1,0 +1,12 @@
+Package: SUSY
+Version: 0.0.1
+Title: Surrogate Synchrony
+Authors@R: c(
+  person("Wolfgang","Tschacher", role=c("aut","cre"), email="wolfgang.tschacher@upd.unibe.ch"),
+  person("David","Tschacher",    role="ctb"),
+  person("Jan","Gorecki",        role="ctb"))
+Suggests: gtools
+Description: Computes synchrony as windowed cross-correlation based on two-dimensional time series in a text file you can upload. SUSY works as described in Tschacher, Rees & Ramseyer (2014).
+License: GPL-2
+URL: https://github.com/WTschacher/SUSY
+BugReports: https://github.com/WTschacher/SUSY/issues
