@@ -10,12 +10,11 @@ old.susy = function(
   # 2019: laengste ZR muss nicht in erste Spalte, missings stehen als Punkt "." im Text-file
   # 2020: Permutation der ZR
 
-  if (!requireNamespace("gtools", quietly=TRUE))
-    stop("legacy susy function requires gtools to work, install gtools package and retry")
-
   data<-read.csv(file=filename,header=datahead,sep=separator,na.strings=missings)
 
   if (permutation) {
+    if (!requireNamespace("gtools", quietly=TRUE))
+      stop("old.susy, when provided permutation=TRUE, requires gtools, install gtools package and retry")
     list_combination<-gtools::combinations(n=ncol(data),r=2,v=colnames(data),set=TRUE,repeats.allowed=FALSE)
     comb<-rbind(list_combination[,1],list_combination[,2])
     data<-data[match(comb,colnames(data))]
