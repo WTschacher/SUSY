@@ -1,0 +1,33 @@
+on: [push]
+jobs:
+  build:
+    name: CD
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r@v2
+      - name: build
+        run: |
+          R CMD build .
+      - name: check
+        run: |
+          Rscript -e 'install.packages("gtools")'
+          R CMD check --as-cran --no-manual $(ls -1t SUSY_*.tar.gz | head -n 1)
+      - name: document
+        run: |
+          sudo apt-get install -y libcurl4-openssl-dev libtiff-dev libharfbuzz-dev libfribidi-dev
+          Rscript -e 'install.packages("pkgdown"); pkgdown::build_site_github_pages(new_process=FALSE, install=TRUE, dest_dir="public")'
+      - name: publish
+        run: |
+          mkdir -p public/src/contrib
+          mv $(ls -1t SUSY_*.tar.gz | head -n 1) public/src/contrib
+          Rscript -e 'tools::write_PACKAGES("public/src/contrib")'
+          ls -R public
+      - name: deploy
+        if: github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          clean: true
+          branch: gh-pages
+          folder: public
