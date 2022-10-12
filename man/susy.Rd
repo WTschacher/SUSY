@@ -6,16 +6,16 @@
 }
 \usage{
 susy(x, permutation=FALSE, epoch=30L, fps=15L, maxlag=3L*fps,
-  pseudo.simplify=FALSE, pseudo.total=500)
+  pseudo.simplify=FALSE, pseudo.total=500L)
 }
 \arguments{
   \item{x}{ A data.frame of numeric columns. }
   \item{permutation}{ Logical, default \code{FALSE} requires \code{x} to have even number of columns which are processed in pairs (1-2, 3-4, etc.). When \code{permutation} is \code{TRUE} then function computes all pairs combinations between columns provided in \code{x} (\code{n*(n-1)/2} pairs). }
-  \item{epoch}{ Numeric, segment size in seconds, default \code{30}. Must not be smaller than time window (\code{fps}), also \code{epoch*fps} must not be greater than the timepoints (\code{nrow(x)/2}). Example 1: timepoints: 1000, fps = 10, so the epoch must not be greater than 50s (=1000/(10*2)); Example 2: maxlag : 90, fps = 10, so epoch must not be less than 9s (=90/10). }
-  \item{fps}{ Numeric, frames per second (sampling rate), default \code{15}. }
+  \item{epoch}{ Integer, segment size in seconds, default \code{30}. Must not be smaller than time window (\code{fps}), also \code{epoch*fps} must not be greater than the timepoints (\code{nrow(x)/2}). Example 1: timepoints: 1000, fps = 10, so the epoch must not be greater than 50s (=1000/(10*2)); Example 2: maxlag : 90, fps = 10, so epoch must not be less than 9s (=90/10). }
+  \item{fps}{ Integer, frames per second (sampling rate), default \code{15}. }
   \item{maxlag}{ Integer, window size for \code{\link[stats]{ccf}}, maximum lag in seconds, default \code{3L*fps}. }
   \item{pseudo.simplify}{ Logical, default \code{FALSE}. Simplify calculation of the pseudo data. }
-  \item{pseudo.total}{ Numeric, default \code{500}. Ignored when \code{pseudo.simplify} is \code{FALSE} (default). }
+  \item{pseudo.total}{ Integer, default \code{500}. Ignored when \code{pseudo.simplify} is \code{FALSE} (default). }
 }
 \value{
   Object of class \code{susy} is returned. Each cross correlation pair is an element in resulting object.

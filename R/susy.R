@@ -12,7 +12,7 @@ as.susy = function(x) {
 }
 
 ## loops using internal crosscor function over column pairs
-susy = function(x, permutation=FALSE, epoch=30L, fps=15L, maxlag=3L*fps, pseudo.simplify=FALSE, pseudo.total=500) {
+susy = function(x, permutation=FALSE, epoch=30L, fps=15L, maxlag=3L*fps, pseudo.simplify=FALSE, pseudo.total=500L) {
   if (!is.data.frame(x))
     stop("'x' must be a data.frame")
   if (is.null(names(x)))
