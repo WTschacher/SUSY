@@ -15,10 +15,12 @@ jobs:
           Rscript -e 'install.packages("gtools")'
           R CMD check --as-cran --no-manual $(ls -1t SUSY_*.tar.gz | head -n 1)
       - name: document
+        if: github.ref == 'refs/heads/master'
         run: |
           sudo apt-get install -y libcurl4-openssl-dev libtiff-dev libharfbuzz-dev libfribidi-dev
           Rscript -e 'install.packages("pkgdown"); pkgdown::build_site_github_pages(new_process=FALSE, install=TRUE, dest_dir="public")'
       - name: publish
+        if: github.ref == 'refs/heads/master'
         run: |
           mkdir -p public/src/contrib
           mv $(ls -1t SUSY_*.tar.gz | head -n 1) public/src/contrib
