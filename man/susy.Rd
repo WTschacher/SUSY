@@ -19,7 +19,7 @@ susy(x, permutation=FALSE, epoch=30L, fps=15L, maxlag=3L*fps,
   \item{pseudo.total}{ Integer, default \code{500L}. Ignored when \code{pseudo.simplify} is \code{FALSE} (default). }
 }
 \details{
-  Epochs are non-overlapping, and the number of epochs that fit into the time series may have a remainder (usually a few seconds at the end of the time series), which is not considered.
+  Segments are non-overlapping, and the number of segments that fit into the time series may have a remainder (usually a few seconds at the end of the time series), which is not considered.
 }
 \value{
   Object of class \code{susy} is returned. Each cross correlation pair is an element in resulting object.
