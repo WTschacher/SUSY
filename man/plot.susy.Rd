@@ -16,7 +16,7 @@
   Method can generate multiple types of plots by providing numeric vector to \code{type} argument. Note it will generate plots for each pair (cross computation) in \code{x}, so the final number of plots is \code{length(x) * length(type)}.
 }
 \value{
-  Returns \code{NULL} invisibly.
+  Returns \code{NULL} invisibly. Generate plot(s) as a side effect.
 }
 \seealso{\code{\link{susy}}}
 \examples{

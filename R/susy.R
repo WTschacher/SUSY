@@ -134,7 +134,7 @@ susy = function(x, permutation=FALSE, epoch=30L, fps=15L, maxlag=3L*fps, pseudo.
       for (i in seq_len(numberEpochen)) {
         for (h in seq_len(numberEpochen)) {
           result = ccf(eps[1L,i,], eps[2L,h,], lag.max=maxlag, plot=FALSE)
-          if (is.nan(result$acf[1]))
+          if (is.nan(result$acf[1L]))
             next
           for (j in seq_len(lagtimes2)) {
             if (i == h) {
@@ -280,97 +280,154 @@ plot.susy = function(x, type=c(3, 5), ...) {
   invisible()
 }
 
-print.susy = function(x, corr.without.amount=TRUE, ...) {
+print.susy = function(x, corr.without.amount=TRUE, legacy=FALSE, ...) {
   if (!inherits(x, "susy"))
     stop("'x' must be an object of class 'susy'")
   if (!isTRUEorFALSE(corr.without.amount))
     stop("'corr.without.amount' must be TRUE or FALSE")
+  if (!isTRUEorFALSE(legacy))
+    stop("'legacy' must be TRUE or FALSE")
 
-  first.print = TRUE
-  print1 = function(x) {
-    ## take out from susy object so no need to prefix in all code below
-    a = x$data[[1L]]
-    b = x$data[[2L]]
-    variablenname1 = names(x$data)[1L]
-    variablenname2 = names(x$data)[2L]
-    size = x$params$size
-    epoch = x$params$epoch
-    anzahlPseudosProEpoche = x$params$anzahlPseudosProEpoche
-    numberEpochen = x$params$numberEpochen
-    maxlag = x$params$maxlag
-    k1 = x$params$k1
-    k1NotAbs = x$params$k1NotAbs
-    lagtimes2 = x$params$lagtimes2
-    meanccorrReal = x$lagtimes2.data$meanccorrReal
-    meanccorrPseudo = x$lagtimes2.data$meanccorrPseudo
-    meanccorrRealZ = x$lagtimes2.data$meanccorrRealZ
-    meanccorrPseudoZ = x$lagtimes2.data$meanccorrPseudoZ
-    meanccorrRealZNotAbs = x$lagtimes2.data$meanccorrRealZNotAbs
-    meanccorrPseudoZNotAbs = x$lagtimes2.data$meanccorrPseudoZNotAbs
-    nReal = x$epoch.data$nReal
-    nPseudo = x$epoch.data$nPseudos
-    if (first.print) {
-      cat("Var1 ")
-      cat("Var2 ")
-      cat("n(data) ")
-      cat("Z ")
-      cat("Z-Pseudo ")
-      cat("SD(Z) ")
-      cat("SD(Z-Pseudo) ")
-      cat("n(lags) ")
-      cat("%>Pseudo ")
-      cat("n(Segmente) ") #10
-      # cat("n(Pseudo) ")
-      cat("ES ")
-      cat("Z(lead1) ")
-      cat("Z(lead2) ") #14
-      # cat("mean(Z-Pseudo)<lag0 ")
-      # cat("mean(Z-Pseudo)>lag0 ") #16
-      cat("ES(lead1) ") #CCF wenn der erste (spalte 1) Zahlenstrang fuhrend ist
-      cat("ES(lead2) ") #CCF wenn der zweite (spalte 2) Zahlenstrang fuhrend ist
+  if (!legacy) {
+    cols = c("Var1","Var2","n(data)","Z","Z-Pseudo","SD(Z)","SD(Z-Pseudo)","n(lags)","%>Pseudo","n(Segmente)","ES","Z(lead1)","Z(lead2)","ES(lead1)","ES(lead2)")
+    if (corr.without.amount)
+      cols = c(cols, c("meanZ(in-phase)","meanZ(anti-phase)","Anzahl(in-phase)","Anzahl(anti-phase)","Z(noAbs)","Z(Pseudo-noAbs)","%>Pseudo(noAbs)","ES(noAbs)"))
+    df1 = function(x) {
+      a = x$data[[1L]]
+      b = x$data[[2L]]
+      variablenname1 = names(x$data)[1L]
+      variablenname2 = names(x$data)[2L]
+      size = x$params$size
+      epoch = x$params$epoch
+      anzahlPseudosProEpoche = x$params$anzahlPseudosProEpoche
+      numberEpochen = x$params$numberEpochen
+      maxlag = x$params$maxlag
+      k1 = x$params$k1
+      k1NotAbs = x$params$k1NotAbs
+      lagtimes2 = x$params$lagtimes2
+      meanccorrReal = x$lagtimes2.data$meanccorrReal
+      meanccorrPseudo = x$lagtimes2.data$meanccorrPseudo
+      meanccorrRealZ = x$lagtimes2.data$meanccorrRealZ
+      meanccorrPseudoZ = x$lagtimes2.data$meanccorrPseudoZ
+      meanccorrRealZNotAbs = x$lagtimes2.data$meanccorrRealZNotAbs
+      meanccorrPseudoZNotAbs = x$lagtimes2.data$meanccorrPseudoZNotAbs
+      nReal = x$epoch.data$nReal
+      nPseudo = x$epoch.data$nPseudos
+
+      l = list(
+        variablenname1, variablenname2, size, mean(meanccorrRealZ), mean(meanccorrPseudoZ), sd(meanccorrRealZ), sd(meanccorrPseudoZ), length(meanccorrRealZ),
+        100*k1/(length(meanccorrRealZ)),
+        numberEpochen,
+        (mean(meanccorrRealZ)-mean(meanccorrPseudoZ))/sd(meanccorrPseudoZ),
+        mean(meanccorrRealZ[1:maxlag]),
+        mean(meanccorrRealZ[(maxlag+2):lagtimes2]),
+        (mean(meanccorrRealZ[1:maxlag])-mean(meanccorrPseudoZ[1:maxlag]))/sd(meanccorrPseudoZ[1:maxlag]),
+        (mean(meanccorrRealZ[(maxlag+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlag+2):lagtimes2])
+      )
       if (corr.without.amount) {
-        cat("meanZ(in-phase) ") #durchschnitt aller positiven korr
-        cat("meanZ(anti-phase) ") #durchschnitt aller negativen korr
-        cat("Anzahl(in-phase) ") #anzahl aller positiven korr
-        cat("Anzahl(anti-phase) ") #anzahl aller negativen korr
-        cat("Z(noAbs) ") #25
-        cat("Z(Pseudo-noAbs) ")
-        cat("%>Pseudo(noAbs) ") # % meanccorrRealZNotAbs die grosser als meanccorrRealZNotAbs sind
-        cat("ES(noAbs) ") #effektstarke
+        l = c(l, list(
+          mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),
+          mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),
+          length(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),
+          length(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),
+          mean(meanccorrRealZNotAbs),
+          mean(meanccorrPseudoZNotAbs),
+          100*k1NotAbs/(length(meanccorrRealZNotAbs)),
+          (mean(meanccorrRealZNotAbs)-mean(meanccorrPseudoZNotAbs))/sd(meanccorrPseudoZNotAbs)
+        ))
+      }
+
+      setNames(as.data.frame(l), cols)
+    }
+    df = do.call("rbind", lapply(unname(x), df1))
+    print(df, ...)
+  } else {
+    first.print = TRUE
+    print1 = function(x) {
+      ## take out from susy object so no need to prefix in all code below
+      a = x$data[[1L]]
+      b = x$data[[2L]]
+      variablenname1 = names(x$data)[1L]
+      variablenname2 = names(x$data)[2L]
+      size = x$params$size
+      epoch = x$params$epoch
+      anzahlPseudosProEpoche = x$params$anzahlPseudosProEpoche
+      numberEpochen = x$params$numberEpochen
+      maxlag = x$params$maxlag
+      k1 = x$params$k1
+      k1NotAbs = x$params$k1NotAbs
+      lagtimes2 = x$params$lagtimes2
+      meanccorrReal = x$lagtimes2.data$meanccorrReal
+      meanccorrPseudo = x$lagtimes2.data$meanccorrPseudo
+      meanccorrRealZ = x$lagtimes2.data$meanccorrRealZ
+      meanccorrPseudoZ = x$lagtimes2.data$meanccorrPseudoZ
+      meanccorrRealZNotAbs = x$lagtimes2.data$meanccorrRealZNotAbs
+      meanccorrPseudoZNotAbs = x$lagtimes2.data$meanccorrPseudoZNotAbs
+      nReal = x$epoch.data$nReal
+      nPseudo = x$epoch.data$nPseudos
+      if (first.print) {
+        cat("Var1 ")
+        cat("Var2 ")
+        cat("n(data) ")
+        cat("Z ")
+        cat("Z-Pseudo ")
+        cat("SD(Z) ")
+        cat("SD(Z-Pseudo) ")
+        cat("n(lags) ")
+        cat("%>Pseudo ")
+        cat("n(Segmente) ") #10
+        # cat("n(Pseudo) ")
+        cat("ES ")
+        cat("Z(lead1) ")
+        cat("Z(lead2) ") #14
+        # cat("mean(Z-Pseudo)<lag0 ")
+        # cat("mean(Z-Pseudo)>lag0 ") #16
+        cat("ES(lead1) ") #CCF wenn der erste (spalte 1) Zahlenstrang fuhrend ist
+        cat("ES(lead2) ") #CCF wenn der zweite (spalte 2) Zahlenstrang fuhrend ist
+        if (corr.without.amount) {
+          cat("meanZ(in-phase) ") #durchschnitt aller positiven korr
+          cat("meanZ(anti-phase) ") #durchschnitt aller negativen korr
+          cat("Anzahl(in-phase) ") #anzahl aller positiven korr
+          cat("Anzahl(anti-phase) ") #anzahl aller negativen korr
+          cat("Z(noAbs) ") #25
+          cat("Z(Pseudo-noAbs) ")
+          cat("%>Pseudo(noAbs) ") # % meanccorrRealZNotAbs die grosser als meanccorrRealZNotAbs sind
+          cat("ES(noAbs) ") #effektstarke
+        }
+        cat("\n")
+        first.print <<- FALSE
+      }
+      cat(variablenname1,"")
+      cat(variablenname2,"")
+      cat(size,"")
+      cat(mean(meanccorrRealZ),"")
+      cat(mean(meanccorrPseudoZ),"")
+      cat(sd(meanccorrRealZ),"")
+      cat(sd(meanccorrPseudoZ),"")
+      cat(length(meanccorrRealZ),"")
+      cat(100*k1/(length(meanccorrRealZ)),"")
+      cat(numberEpochen,"") #10
+      # cat(numberEpochen*(numberEpochen-1),"")
+      cat((mean(meanccorrRealZ)-mean(meanccorrPseudoZ))/sd(meanccorrPseudoZ),"")
+      cat(mean(meanccorrRealZ[1:maxlag]),"")
+      cat(mean(meanccorrRealZ[(maxlag+2):lagtimes2]),"") #14
+      # cat(mean(meanccorrPseudoZ[1:maxlag]),"")
+      # cat(mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]),"") #16
+      cat((mean(meanccorrRealZ[1:maxlag])-mean(meanccorrPseudoZ[1:maxlag]))/sd(meanccorrPseudoZ[1:maxlag]),"")
+      cat((mean(meanccorrRealZ[(maxlag+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlag+2):lagtimes2]),"") #18
+      if (corr.without.amount) {
+        cat(mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),"")
+        cat(mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),"")
+        cat(length(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),"")
+        cat(length(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),"")
+        cat(mean(meanccorrRealZNotAbs),"") #25
+        cat(mean(meanccorrPseudoZNotAbs),"")
+        cat(100*k1NotAbs/(length(meanccorrRealZNotAbs)),"")
+        cat((mean(meanccorrRealZNotAbs)-mean(meanccorrPseudoZNotAbs))/sd(meanccorrPseudoZNotAbs),"")
       }
       cat("\n")
-      first.print <<- FALSE
     }
-    cat(variablenname1,"")
-    cat(variablenname2,"")
-    cat(size,"")
-    cat(mean(meanccorrRealZ),"")
-    cat(mean(meanccorrPseudoZ),"")
-    cat(sd(meanccorrRealZ),"")
-    cat(sd(meanccorrPseudoZ),"")
-    cat(length(meanccorrRealZ),"")
-    cat(100*k1/(length(meanccorrRealZ)),"")
-    cat(numberEpochen,"") #10
-    # cat(numberEpochen*(numberEpochen-1),"")
-    cat((mean(meanccorrRealZ)-mean(meanccorrPseudoZ))/sd(meanccorrPseudoZ),"")
-    cat(mean(meanccorrRealZ[1:maxlag]),"")
-    cat(mean(meanccorrRealZ[(maxlag+2):lagtimes2]),"") #14
-    # cat(mean(meanccorrPseudoZ[1:maxlag]),"")
-    # cat(mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]),"") #16
-    cat((mean(meanccorrRealZ[1:maxlag])-mean(meanccorrPseudoZ[1:maxlag]))/sd(meanccorrPseudoZ[1:maxlag]),"")
-    cat((mean(meanccorrRealZ[(maxlag+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlag+2):lagtimes2]),"") #18
-    if (corr.without.amount) {
-      cat(mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),"")
-      cat(mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),"")
-      cat(length(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),"")
-      cat(length(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),"")
-      cat(mean(meanccorrRealZNotAbs),"") #25
-      cat(mean(meanccorrPseudoZNotAbs),"")
-      cat(100*k1NotAbs/(length(meanccorrRealZNotAbs)),"")
-      cat((mean(meanccorrRealZNotAbs)-mean(meanccorrPseudoZNotAbs))/sd(meanccorrPseudoZNotAbs),"")
-    }
-    cat("\n")
+    lapply(x, print1)
   }
-  lapply(x, print1)
   invisible(x)
 }
