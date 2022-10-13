@@ -3,7 +3,7 @@
 \title{ Surrogate Synchrony }
 \description{
   Cross-correlations are computed up to a specific lag in seconds \code{Maxlag}, then aggregated within a chosen \code{Segment} of e.g. 30s. Aggregation is performed by transforming correlations to Fisher's Z, then computing mean Z in each segment, then across all segments of the time series. Segment shuffling is used to create surrogate time series, on which the same computations are run. This provides effect sizes \code{ES}. SUSY provides two different synchrony measures of each twin time series: \code{mean Z} and \code{ES of mean Z}; \code{mean absolute_Z} and \code{ES of mean absolute_Z}.\cr
-  Legacy implementation is available at \link{\code{old.susy}}.
+  Legacy implementation is available at \code{\link{old.susy}}.
 }
 \usage{
 susy(x, permutation=FALSE, epoch=30L, fps=15L, maxlag=3L*fps,

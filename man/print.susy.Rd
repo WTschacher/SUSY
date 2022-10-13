@@ -10,7 +10,7 @@
 \arguments{
   \item{x}{ A \code{susy} object. }
   \item{corr.without.amount}{ Logical, defaults to \code{TRUE} display correlation without the amount. }
-  \item{legacy}{ Logical, defaults to \code{FALSE}, when \code{TRUE} print will produce an output that matches legacy SUSY computation \link{\code{old.susy}}. }
+  \item{legacy}{ Logical, defaults to \code{FALSE}, when \code{TRUE} print will produce an output that matches legacy SUSY computation \code{\link{old.susy}}. }
   \item{\dots}{ Extra arguments passed to \code{print.data.frame} method. }
 }
 \value{
