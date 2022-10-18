@@ -121,26 +121,26 @@
 <span class="r-in"><span><span class="co">## print susy</span></span></span>
 <span class="r-in"><span><span class="va">res</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Var1 Var2 n(data)          Z   Z-Pseudo      SD(Z) SD(Z-Pseudo) n(lags)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 var1 var2    1000 0.03670287 0.03598737 0.02282102   0.01898798      91</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 var1 var3    1000 0.03741328 0.03850539 0.02230235   0.02180317      91</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 var2 var3    1000 0.03725189 0.03555747 0.02005090   0.01800835      91</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   %&gt;Pseudo n(Segmente)          ES   Z(lead1)   Z(lead2)  ES(lead1)   ES(lead2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 47.25275           2  0.03768162 0.03368249 0.04010975 0.02441557  0.11923013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 53.84615           2 -0.05008987 0.03835185 0.03682748 0.04961536 -0.14980462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 50.54945           2  0.09409066 0.03836375 0.03660329 0.17530091  0.03095736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   meanZ(in-phase) meanZ(anti-phase) Anzahl(in-phase) Anzahl(anti-phase)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0.02433110       -0.02683235               47                 44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0.02577124       -0.02705844               49                 42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0.02257818       -0.02733171               45                 46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Z(noAbs) Z(Pseudo-noAbs) %&gt;Pseudo(noAbs)    ES(noAbs)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.0004072682   -0.0002853601        52.74725 -0.003535383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.0013883098   -0.0014727646        51.64835  0.081259761</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.0026509974    0.0016947322        42.85714 -0.151761745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 var1 var2    1000 0.03452312 0.03955354 0.01820813   0.01861211      91</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 var1 var3    1000 0.03821652 0.03242691 0.02162886   0.01785053      91</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 var2 var3    1000 0.03553745 0.03700488 0.01852510   0.01989256      91</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   %&gt;Pseudo n(Segmente)          ES   Z(lead1)   Z(lead2)    ES(lead1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 36.26374           2 -0.27027679 0.03243375 0.03591506 -0.497470969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 60.43956           2  0.32433838 0.03581875 0.04031753 -0.002108751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 46.15385           2 -0.07376774 0.03607059 0.03522796 -0.032134130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ES(lead2) meanZ(in-phase) meanZ(anti-phase) Anzahl(in-phase)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -0.1381360      0.02439309       -0.02329122               47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6946167      0.02912177       -0.02980047               51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.1046060      0.02701247       -0.02279094               41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Anzahl(anti-phase)      Z(noAbs) Z(Pseudo-noAbs) %&gt;Pseudo(noAbs)   ES(noAbs)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 44  0.0013369394   -0.0002166195        45.05495  0.04482044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 40  0.0032218848    0.0024051151        43.95604  0.03109527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 50 -0.0003520419    0.0031662224        47.25275 -0.10953553</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span>, legacy<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Var1 Var2 n(data) Z Z-Pseudo SD(Z) SD(Z-Pseudo) n(lags) %&gt;Pseudo n(Segmente) ES Z(lead1) Z(lead2) ES(lead1) ES(lead2) meanZ(in-phase) meanZ(anti-phase) Anzahl(in-phase) Anzahl(anti-phase) Z(noAbs) Z(Pseudo-noAbs) %&gt;Pseudo(noAbs) ES(noAbs) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> var1 var2 1000 0.03670287 0.03598737 0.02282102 0.01898798 91 47.25275 2 0.03768162 0.03368249 0.04010975 0.02441557 0.1192301 0.0243311 -0.02683235 47 44 -0.0004072682 -0.0002853601 52.74725 -0.003535383 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> var1 var3 1000 0.03741328 0.03850539 0.02230235 0.02180317 91 53.84615 2 -0.05008987 0.03835185 0.03682748 0.04961536 -0.1498046 0.02577124 -0.02705844 49 42 0.00138831 -0.001472765 51.64835 0.08125976 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> var2 var3 1000 0.03725189 0.03555747 0.0200509 0.01800835 91 50.54945 2 0.09409066 0.03836375 0.03660329 0.1753009 0.03095736 0.02257818 -0.02733171 45 46 -0.002650997 0.001694732 42.85714 -0.1517617 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var1 var2 1000 0.03452312 0.03955354 0.01820813 0.01861211 91 36.26374 2 -0.2702768 0.03243375 0.03591506 -0.497471 -0.138136 0.02439309 -0.02329122 47 44 0.001336939 -0.0002166195 45.05495 0.04482044 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var1 var3 1000 0.03821652 0.03242691 0.02162886 0.01785053 91 60.43956 2 0.3243384 0.03581875 0.04031753 -0.002108751 0.6946167 0.02912177 -0.02980047 51 40 0.003221885 0.002405115 43.95604 0.03109527 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> var2 var3 1000 0.03553745 0.03700488 0.0185251 0.01989256 91 46.15385 2 -0.07376774 0.03607059 0.03522796 -0.03213413 -0.104606 0.02701247 -0.02279094 41 50 -0.0003520419 0.003166222 47.25275 -0.1095355 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot susy</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>

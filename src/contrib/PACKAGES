@@ -2,5 +2,5 @@ Package: SUSY
 Version: 0.0.2
 Suggests: gtools
 License: GPL-2
-MD5sum: ae8dea8b9f826af28cff601911ddaa40
+MD5sum: 53bd93e1d09f4a5302782183d860f14a
 NeedsCompilation: no
