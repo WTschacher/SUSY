@@ -19,20 +19,20 @@ old.susy(
   \item{separator}{ Character scalar, source file data separator. Defaults to \code{" "}. }
   \item{missings}{ Character scalar, source file data missings marker. Defalts to \code{"."}. }
   \item{datahead}{ Logical scalar, tells if source data has a header row. Defaults to \code{TRUE}. }
-  \item{spalte1}{ Numeric, ???hier bezeichnete Spalte 1 wird mit Spalte 2 verglichen (falls automatic = FALSE)??. Defaults to \code{2}. }
-  \item{spalte2}{ Numeric, ???. Defaults to \code{5}. }
+  \item{spalte1}{ Numeric, first column number of data to use. Defaults to \code{2}. }
+  \item{spalte2}{ Numeric, second column number of data to use. Defaults to \code{5}. }
   \item{epoche}{ Epochengroesse (SEGMENT SIZE) in s (Epoche darf nicht kleiner sein als Zeitfenster/fps). Epoche*fps darf nicht groesser sein als die Anzahl Daten (timepoints) geteilt durch 2. Beispiel 1: timepoints: 1000, fps = 10, also darf Epoche nicht groesser sein als 50s (=1000/(10*2)). Beispiel 2: maxlag : 90, fps = 10, also darf Epoche nicht KLEINER sein als 9s (=90/10). }
-  \item{fps}{ frames per second (SAMPLING RATE). }
-  \item{maxlag}{ Zeitfenster (WINDOW SIZE) fuer CCF - > maximaler lag in Sekunden (nur ganze Zahlen). }
-  \item{automatic}{ automatische Iteration? TRUE, FALSE. es wird die erste mit der zweiten Spalte verglichen, dann die dritte mit der vierten usw... ein Spaltenpaar muss dieselbe Anzahl Daten haben, aber verschiedene Paare nicht. Beachte: Es werden keine Plots ausgegeben falls automatic = TRUE. }
-  \item{plotid}{ welche Art plot soll angezeigt werden (man kann den plot auch manuell ausfuehren (unten)). 0 nichts, 1 GMcrosscorrs, 2 synchrony by epoch, 3 GM-Z, 4 Zeitreihenplot, 5 z not abs wenn plotid2 == 0, dann kein zweiter plot }
-  \item{plotid2}{ see above }
-  \item{pseudosVereinfachen}{ Berechnung der pseudo-Daten vereinfachen (TRUE, FALSE) Falls FALSE, anzahlPseudosGesamt irrelevant anzahlPseudos: Anzahl der Surrogats-tests aller Epochen }
-  \item{anzahlPseudosGesamt}{ ... }
-  \item{zufallsdaten}{ Zufallsdaten (Normalverteilte Zahlen im Bereich [0,50] }
-  \item{anzahlzufallsdaten}{ ... }
-  \item{korrOhneBetragAnzeigen}{ Korrelationen ohne Betrag auch anzeigen? (FALSE/TRUE) }
-  \item{permutation}{ Permuation: Synchronie f?r n(n-1)/2 Dyaden berechnen }
+  \item{fps}{ Numeric, frames per second, sampling rate. }
+  \item{maxlag}{ Numeric, window size for CCF, maximum lag in seconds, only whole number. }
+  \item{automatic}{ Logical, if \code{TRUE} then all pairs of columns are computed, therefore number of columns must be even and also a plot is not generated. }
+  \item{plotid}{ Numeric, specifies the type of the first plot, defaults to \code{3}. \code{1}: \emph{GMcrosscorrs}, \code{2}: \emph{synchrony by epoch}, \code{3}: \emph{GM-Z}, \code{4}: \emph{time series plot}, \code{5}: \emph{z not abs}. }
+  \item{plotid2}{ Numeric, specifies the type of the first plot, defaults to \code{5}. }
+  \item{pseudosVereinfachen}{ Logical, default \code{FALSE}. Simplify calculation of the pseudo data. }
+  \item{anzahlPseudosGesamt}{ Numeric, default \code{500}. Ignored when \code{pseudosVereinfachen} is \code{FALSE} (default) }
+  \item{zufallsdaten}{ Logical, if \code{TRUE} then use random data, normally distributed numbers in the range [0,50]. }
+  \item{anzahlzufallsdaten}{ Numeric, number of rows in random data. }
+  \item{korrOhneBetragAnzeigen}{ Logical, defaults to \code{TRUE} display correlation without the amount. }
+  \item{permutation}{ Logical, if \code{TRUE} then function computes all pairs combinations between columns provided in \code{x} (\code{n*(n-1)/2} pairs) }
 }
 \value{
   Returns \code{NULL} invisibly. A side effects include:
