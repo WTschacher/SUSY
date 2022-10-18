@@ -12,7 +12,6 @@ jobs:
           R CMD build .
       - name: check
         run: |
-          Rscript -e 'install.packages("gtools")'
           R CMD check --as-cran --no-manual $(ls -1t SUSY_*.tar.gz | head -n 1)
       - name: document
         if: github.ref == 'refs/heads/master'
