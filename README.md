@@ -65,14 +65,9 @@ names(res)
 ## print legacy style
 print(res, legacy=TRUE)
 
-## export
-df = data.frame(
-  xdata = seq(from=-res[[1L]]$params$maxlag , to=res[[1L]]$params$maxlag),
-  meanccorrPseudo = res[[1L]]$lagtimes2.data$meanccorrPseudo, meanccorrReal = res[[1L]]$lagtimes2.data$meanccorrReal
-)
-write.table(df, file="CrossCorrelations.txt", sep=",", row.names=FALSE, col.names=TRUE)
-## cleanup
-file.remove("CrossCorrelations.txt")
+## export to flat file
+df = as.data.frame(res)
+write.table(df, file="correlation.txt", sep=",", row.names=FALSE)
 ```
 
 [`susy` function manual](https://WTschacher.github.io/SUSY/reference/susy.html)
