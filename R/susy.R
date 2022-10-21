@@ -66,11 +66,11 @@ susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simpli
     if (pseudo.simplify) {
       anzahlPseudosProEpoche = floor(pseudo.total/numberEpochen)
       if (anzahlPseudosProEpoche < 1L) {
-        warning("anzahlPseudosProGesamt is bigger than numberEpochen, setting anzahlPseudosProEpoche to 1")
+        warning("Number of pseudos per total is bigger than number number of segments (length/range-0.5), setting pseudos per segment to 1")
         anzahlPseudosProEpoche = 1L
       }
       if (anzahlPseudosProEpoche >= numberEpochen) {
-        warning("pseudo.total is too big, reduced to numberEpochen-1")
+        warning("pseudo.total is bigger than number of segments (length/range-0.5), setting pseudos per segment to number of segments - 1")
         anzahlPseudosProEpoche = numberEpochen-1L
       }
       if (anzahlPseudosProEpoche == numberEpochen-1L) {
@@ -245,27 +245,27 @@ plot.susy = function(x, type=c(4, 5), ...) {
       if (t == 1L) { ## synchronie meanccorrReal meanccorrPseudo
         min0 = min(meanccorrReal, meanccorrPseudo)
         max0 = max(meanccorrReal, meanccorrPseudo)
-        title0 =  paste("Synchrony",variablenname1,variablenname2," segment:",segment,"s;",anzahlPseudosProEpoche*numberEpochen,"pseudos")
+        title0 = sprintf("Synchrony %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
         plot(seq(from = -maxlag , to = maxlag), meanccorrReal, ylim=c(min0, max0+ 0.19*(max0-min0)), main=title0,
              xlab="lag", ylab="correlation", type="l", col="green", lwd = 4)
         lines(seq(from = -maxlag , to = maxlag), meanccorrPseudo, col="red", lwd = 4)
         legend("topright", pch = c(3), col = c("green", "red"),legend = c("meanccorr", "meanccorr pseudo"))
       } else if (t == 2L) { ## Epochensynchronie nReal nPseudo
-        title0 =  paste("Segmentsynchronie",variablenname1,variablenname2," segment:",segment,"s;",anzahlPseudosProEpoche*numberEpochen,"pseudos")
-        plot(seq(from = 1 , to = numberEpochen ), nReal, ylim=c(min(nReal, nPseudo), max(nReal, nPseudo)), main=title0,
-             xlab="Segment-Nr.", ylab="correlation", type="l", col="green")
+        title0 = sprintf("Segment synchronies %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
+        plot(seq(from = 1 , to = numberEpochen), nReal, ylim=c(min(nReal, nPseudo), max(nReal, nPseudo)), main=title0,
+             xlab="segment", ylab="correlation", type="l", col="green")
         lines(seq(from = 1, to = numberEpochen ), nPseudo, col="red", lwd = 2)
         legend("topright", pch = c(3), col = c("green", "red"),legend = c("cor real", "cor pseudo"))
       } else if (t == 3L) { ## Synchrony meanccorrRealZ meanccorrPseudoZ
         min0 = min(meanccorrRealZ, meanccorrPseudoZ)
         max0 = max(meanccorrRealZ, meanccorrPseudoZ)
-        title0 =  paste("Z-Synchrony",variablenname1,variablenname2," segment:",segment,"s;",anzahlPseudosProEpoche*numberEpochen,"pseudos")
+        title0 = sprintf("Z-Synchrony %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
         plot(seq(from = -maxlag , to = maxlag), meanccorrRealZ, ylim=c(min0, max0+ 0.19*(max0-min0)),
              main=title0, xlab="lag", ylab="correlation", type="l", col="green", lwd = 4)
         lines(seq(from = -maxlag , to = maxlag), meanccorrPseudoZ, col="red", lwd = 4)
         legend("topright", pch = c(3), col = c("green", "red"),legend = c("Z(meanccorr)", "Z(meanccorr pseudo)"))
       } else if (t == 4L) { ## Zeige die Verteilung der data an
-        title0 = paste("eingelesene Zeitreihen")
+        title0 = sprintf("Time series %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
         plot(seq(from = 1 , to = size), a,ylim=c(min(a, b), max(a, b)), main=title0,
              xlab="Zeit", ylab="Wert", type="l", pch=20, col="green")
         points(seq(from = 1 , to = size), b, type="l", pch=20, col="red", lwd = 2)
@@ -273,11 +273,11 @@ plot.susy = function(x, type=c(4, 5), ...) {
       } else if (t == 5L) { ## Synchrony meanccorrRealZNotAbs meanccorrPseudoZNotAbs
         min0 = min(meanccorrRealZNotAbs, meanccorrPseudoZNotAbs)
         max0 = max(meanccorrRealZNotAbs, meanccorrPseudoZNotAbs)
-        title0 =  paste("Z-Synchrony NotAbs",variablenname1,variablenname2," segment:",segment,"s;",anzahlPseudosProEpoche*numberEpochen,"pseudos")
+        title0 = sprintf("Z-Synchrony not ABS %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
         plot(seq(from = -maxlag , to = maxlag), meanccorrRealZNotAbs, ylim=c(min0, max0+ 0.19*(max0-min0)),
              main=title0, xlab="lag", ylab="correlation", type="l", col="green", lwd = 4)
         lines(seq(from = -maxlag , to = maxlag), meanccorrPseudoZNotAbs, col="red", lwd = 4)
-        legend("topright", pch = c(3), col = c("green", "red"),legend = c("Z(meanccorr NotAbs)", "Z(meanccorr pseudo NotAbs)"))
+        legend("topright", pch = c(3), col = c("green", "red"),legend = c("Z(meanccorr not ABS)", "Z(meanccorr pseudo not ABS)"))
       }
     }
   }

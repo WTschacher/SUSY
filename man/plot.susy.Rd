@@ -11,10 +11,10 @@
   \item{x}{ A \code{susy} object. }
   \item{type}{ Numeric, specifies the types of plot, defaults to \code{c(4, 5)}. \enumerate{
     \item{\emph{GMcrosscorrs}}
-    \item{\emph{synchrony by epoch}}
+    \item{\emph{synchrony by segments}}
     \item{\emph{GM-Z}}
     \item{\emph{time series plot}}
-    \item{\emph{z not abs}}
+    \item{\emph{Z not abs}}
   }}
   \item{\dots}{ Ignored. }
 }
