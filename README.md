@@ -31,15 +31,15 @@ data = data.frame(
 )
 
 ## compute SUSY for var1-var2
-res = susy(data[, c("var1","var2")], segment=30L, fps=15L)
+res = susy(data[, c("var1","var2")], segment=30, fps=15)
 names(res)
 
 ## compute SUSY for var2-var3
-res = susy(data[, c("var2","var3")], segment=30L, fps=15L)
+res = susy(data[, c("var2","var3")], segment=30, fps=15)
 names(res)
 
 ## compute SUSY for var1-var2 and var3-var4
-res = susy(data, segment=30L, fps=15L)
+res = susy(data, segment=30, fps=15)
 names(res)
 
 ## print all SUSY computations
