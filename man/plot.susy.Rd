@@ -5,11 +5,17 @@
   Generate plot(s) for a \code{susy} object.
 }
 \usage{
-  \method{plot}{susy}(x, type=c(3, 5), \dots)
+  \method{plot}{susy}(x, type=c(4, 5), \dots)
 }
 \arguments{
   \item{x}{ A \code{susy} object. }
-  \item{type}{ Numeric, specifies the types of plot, defaults to \code{c(3, 5)}. \code{1}: \emph{GMcrosscorrs}, \code{2}: \emph{synchrony by epoch}, \code{3}: \emph{GM-Z}, \code{4}: \emph{time series plot}, \code{5}: \emph{z not abs}. }
+  \item{type}{ Numeric, specifies the types of plot, defaults to \code{c(4, 5)}. \enumerate{
+    \item{\emph{GMcrosscorrs}}
+    \item{\emph{synchrony by epoch}}
+    \item{\emph{GM-Z}}
+    \item{\emph{time series plot}}
+    \item{\emph{z not abs}}
+  }}
   \item{\dots}{ Ignored. }
 }
 \details{
@@ -22,11 +28,11 @@
 \examples{
 n = 1000
 data = data.frame(
-  var1 = runif(n,300,330),
-  var2 = runif(n,300,330),
-  var3 = runif(n,300,330)
+  var1 = runif(n, 300, 330),
+  var2 = runif(n, 300, 330),
+  var3 = runif(n, 300, 330)
 )
-res = susy(data, permutation=TRUE)
+res = susy(data, segment=30L, fps=15L, permutation=TRUE)
 plot(res, type=c(3,5))
 }
 \keyword{ data }

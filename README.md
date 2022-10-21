@@ -24,22 +24,22 @@ library(SUSY)
 ## random data
 n = 10000
 data = data.frame(
- var1 = runif(n,300,330),
- var2 = runif(n,300,330),
- var3 = runif(n,300,330),
- var4 = runif(n,300,330)
+ var1 = runif(n, 300, 330),
+ var2 = runif(n, 300, 330),
+ var3 = runif(n, 300, 330),
+ var4 = runif(n, 300, 330)
 )
 
 ## compute SUSY for var1-var2
-res = susy(data[, c("var1","var2")])
+res = susy(data[, c("var1","var2")], segment=30L, fps=15L)
 names(res)
 
 ## compute SUSY for var2-var3
-res = susy(data[, c("var2","var3")])
+res = susy(data[, c("var2","var3")], segment=30L, fps=15L)
 names(res)
 
 ## compute SUSY for var1-var2 and var3-var4
-res = susy(data)
+res = susy(data, segment=30L, fps=15L)
 names(res)
 
 ## print all SUSY computations

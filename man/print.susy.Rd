@@ -5,11 +5,11 @@
   Prints information about an \code{susy} object.
 }
 \usage{
-  \method{print}{susy}(x, corr.without.amount=TRUE, legacy=FALSE, \dots)
+  \method{print}{susy}(x, corr.no.abs=TRUE, legacy=FALSE, \dots)
 }
 \arguments{
   \item{x}{ A \code{susy} object. }
-  \item{corr.without.amount}{ Logical, defaults to \code{TRUE} display correlation without the amount. }
+  \item{corr.no.abs}{ Logical, defaults to \code{TRUE} display correlation without the absolute value. }
   \item{legacy}{ Logical, defaults to \code{FALSE}, when \code{TRUE} print will produce an output that matches legacy SUSY computation \code{\link{old.susy}}. }
   \item{\dots}{ Extra arguments passed to \code{print.data.frame} method. }
 }
@@ -20,12 +20,12 @@
 \examples{
 n = 1000
 data = data.frame(
-  var1 = runif(n,300,330),
-  var2 = runif(n,300,330)
+  var1 = runif(n, 300, 330),
+  var2 = runif(n, 300, 330)
 )
-res = susy(data)
+res = susy(data, segment=30L, fps=15L)
 res
-print(res, corr.without.amount=FALSE)
+print(res, corr.no.abs=FALSE)
 print(res, digits=4)
 print(res, legacy=TRUE)
 }
