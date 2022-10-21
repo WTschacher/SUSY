@@ -54,9 +54,14 @@ susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simpli
 
   crosscor = function(ipair) {
     vars = names(x)[pairs[ipair,]]
-    a = na.omit(x[, pairs[ipair,1L]])
-    b = na.omit(x[, pairs[ipair,2L]])
-    size = max(length(a), length(b))
+    a = x[, pairs[ipair,1L]]
+    b = x[, pairs[ipair,2L]]
+    cc = complete.cases(a, b)
+    a = a[cc]
+    b = b[cc]
+    if (!length(a))
+      stop("empty data after filtering out missing values")
+    size = length(a) ## same as length of b
     numberEpochen = round(size/range-0.499999)
     if (pseudo.simplify) {
       anzahlPseudosProEpoche = floor(pseudo.total/numberEpochen)

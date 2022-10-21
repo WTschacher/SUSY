@@ -34,6 +34,9 @@ old.susy(
   \item{korrOhneBetragAnzeigen}{ Logical, defaults to \code{TRUE} display correlation without the amount. }
   \item{permutation}{ Logical, if \code{TRUE} then function computes all pairs combinations between columns provided in \code{x} (\code{n*(n-1)/2} pairs) }
 }
+\note{
+  Function does not handle missing values.
+}
 \value{
   Returns \code{NULL} invisibly. A side effects include:
   \itemize{
