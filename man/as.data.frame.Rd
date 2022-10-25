@@ -1,6 +1,5 @@
 \name{as.data.frame.susy}
 \alias{as.data.frame.susy}
-\alias{as.data.frame}
 \title{ susy to data.frame conversion method }
 \description{
   Turns \code{susy} class object into a \code{data.frame}.
