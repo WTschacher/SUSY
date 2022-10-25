@@ -24,7 +24,7 @@ susy(x, segment, Hz, maxlag=3L, permutation=FALSE,
 \value{
   Object of class \code{susy} is returned. Each cross correlation pair is an element in resulting object.
 }
-\seealso{\code{\link{plot.susy}}, \code{\link{print.susy}}, \code{\link{old.susy}}}
+\seealso{\code{\link{plot.susy}}, \code{\link{as.data.frame.susy}}, \code{\link{print.susy}}, \code{\link{old.susy}}}
 \examples{
 n = 1000
 data = data.frame(
