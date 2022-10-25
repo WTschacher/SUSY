@@ -31,15 +31,15 @@ data = data.frame(
 )
 
 ## compute SUSY for var1-var2
-res = susy(data[, c("var1","var2")], segment=30, fps=15)
+res = susy(data[, c("var1","var2")], segment=30, Hz=15)
 names(res)
 
 ## compute SUSY for var2-var3
-res = susy(data[, c("var2","var3")], segment=30, fps=15)
+res = susy(data[, c("var2","var3")], segment=30, Hz=15)
 names(res)
 
 ## compute SUSY for var1-var2 and var3-var4
-res = susy(data, segment=30, fps=15)
+res = susy(data, segment=30, Hz=15)
 names(res)
 
 ## print all SUSY computations
@@ -59,7 +59,7 @@ plot(res[1], type=c(1,4))
 plot(res[2], type=1:5)
 
 ## compute SUSY for all permutations of var1, var2, var3 and var4
-res = susy(data, permutation=TRUE)
+res = susy(data, segment=30, Hz=15, permutation=TRUE)
 names(res)
 
 ## print legacy style

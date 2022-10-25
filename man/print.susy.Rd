@@ -23,7 +23,7 @@ data = data.frame(
   var1 = runif(n, 300, 330),
   var2 = runif(n, 300, 330)
 )
-res = susy(data, segment=30L, fps=15L)
+res = susy(data, segment=30L, Hz=15L)
 res
 print(res, corr.no.abs=FALSE)
 print(res, digits=4)

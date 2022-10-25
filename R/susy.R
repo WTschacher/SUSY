@@ -12,7 +12,7 @@ as.susy = function(x) {
 }
 
 ## loops using internal crosscor function over column pairs
-susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simplify=FALSE, pseudo.total=500) {
+susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogates=FALSE, surrogates.total=500) {
   if (!is.data.frame(x))
     stop("'x' must be a data.frame")
   if (is.null(names(x)))
@@ -23,8 +23,8 @@ susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simpli
     stop("'permutation' must be TRUE or FALSE")
   if (!is.numeric(segment) || length(segment)!=1L || is.na(segment))
     stop("'segment' must be scalar non-NA numeric")
-  if (!is.numeric(fps) || length(fps)!=1L || is.na(fps))
-    stop("'fps' must be scalar non-NA numeric")
+  if (!is.numeric(Hz) || length(Hz)!=1L || is.na(Hz))
+    stop("'Hz' must be scalar non-NA numeric")
   if (!is.numeric(maxlag) || length(maxlag)!=1L || is.na(maxlag))
     stop("'maxlag' must be scalar non-NA numeric")
 
@@ -35,16 +35,16 @@ susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simpli
     stop("When 'permutation' is FALSE then 'x' must have even number of columns")
 
   segment = as.integer(segment)
-  fps = as.integer(fps)
+  Hz = as.integer(Hz)
   maxlag = as.integer(maxlag)
 
-  if (segment < fps)
-    stop("'segment' must not be smaller than 'fps'")
-  if (segment * fps > nrow(x)/2)
-    stop("'segment*fps' must not be greater than 'nrow(x)'")
+  if (segment < 2L*maxlag)
+    stop("'segment' must not be smaller than '2 * maxlag'")
+  if (segment > nrow(x)/2)
+    stop("'segment' must not be greater than 'nrow(x)/2'")
 
   lagtimes2 = maxlag*2L + 1L
-  range = segment * fps
+  range = segment * Hz
 
   if (!permutation) {
     pairs = matrix(seq_len(nx), ncol=2L, byrow=TRUE)
@@ -63,18 +63,18 @@ susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simpli
       stop("empty data after filtering out missing values")
     size = length(a) ## same as length of b
     numberEpochen = round(size/range-0.499999)
-    if (pseudo.simplify) {
-      anzahlPseudosProEpoche = floor(pseudo.total/numberEpochen)
+    if (restrict.surrogates) {
+      anzahlPseudosProEpoche = floor(surrogates.total/numberEpochen)
       if (anzahlPseudosProEpoche < 1L) {
         warning("Number of pseudos per total is bigger than number number of segments (length/range-0.5), setting pseudos per segment to 1")
         anzahlPseudosProEpoche = 1L
       }
       if (anzahlPseudosProEpoche >= numberEpochen) {
-        warning("pseudo.total is bigger than number of segments (length/range-0.5), setting pseudos per segment to number of segments - 1")
+        warning("surrogates.total is bigger than number of segments (length/range-0.5), setting pseudos per segment to number of segments - 1")
         anzahlPseudosProEpoche = numberEpochen-1L
       }
       if (anzahlPseudosProEpoche == numberEpochen-1L) {
-        pseudo.simplify = FALSE
+        restrict.surrogates = FALSE
       }
     } else {
       anzahlPseudosProEpoche = numberEpochen-1L
@@ -94,7 +94,7 @@ susy = function(x, segment, fps, maxlag=3L*fps, permutation=FALSE, pseudo.simpli
       vector("double", lagtimes2)
     nReal = nPseudo =
       vector("double", numberEpochen)
-    if (pseudo.simplify) {
+    if (restrict.surrogates) {
       for (i in seq_len(numberEpochen)) {
         result = ccf(eps[1L,i,], eps[2L,i,], lag.max=maxlag, plot=FALSE)
         if (!is.nan(result$acf[1L])) {

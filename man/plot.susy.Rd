@@ -32,7 +32,7 @@ data = data.frame(
   var2 = runif(n, 300, 330),
   var3 = runif(n, 300, 330)
 )
-res = susy(data, segment=30L, fps=15L, permutation=TRUE)
+res = susy(data, segment=30L, Hz=15L, permutation=TRUE)
 plot(res, type=c(3,5))
 }
 \keyword{ data }
