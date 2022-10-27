@@ -43,6 +43,7 @@ susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogate
   if (segment > nrow(x)/2)
     stop("'segment' must not be greater than 'nrow(x)/2'")
 
+  maxlag = maxlag*Hz ## maxlag changes meaning, we leave it like this to be consistent to old susy
   lagtimes2 = maxlag*2L + 1L
   range = segment * Hz
 

@@ -1,6 +1,6 @@
 old.susy = function(
   filename="MEA-topstage-C3-Beethoven.txt", separator=" ", missings=".", datahead=TRUE,
-  spalte1=2, spalte2=5, epoche=30, fps=15, maxlag=3*fps, automatic=FALSE, plotid=3, plotid2=5,
+  spalte1=2, spalte2=5, epoche=30, fps=15, maxlag=3, automatic=FALSE, plotid=3, plotid2=5,
   pseudosVereinfachen=FALSE, anzahlPseudosGesamt=500, zufallsdaten=FALSE, anzahlzufallsdaten=10000,
   korrOhneBetragAnzeigen=TRUE, permutation=FALSE
   ) {
@@ -55,6 +55,7 @@ old.susy = function(
     }
     a = a[!is.na(a)]
     b = b[!is.na(b)]
+    maxlag = maxlag*fps
     lagtimes2 = maxlag*2 + 1
 
     size = length(a)
