@@ -43,8 +43,8 @@ susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogate
   if (segment > nrow(x)/2)
     stop("'segment' must not be greater than 'nrow(x)/2'")
 
-  maxlag = maxlag*Hz ## maxlag changes meaning, we leave it like this to be consistent to old susy
-  lagtimes2 = maxlag*2L + 1L
+  maxlagHz = maxlag*Hz
+  lagtimes2 = maxlagHz*2L + 1L
   range = segment * Hz
 
   if (!permutation) {
@@ -97,7 +97,7 @@ susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogate
       vector("double", numberEpochen)
     if (restrict.surrogates) {
       for (i in seq_len(numberEpochen)) {
-        result = ccf(eps[1L,i,], eps[2L,i,], lag.max=maxlag, plot=FALSE)
+        result = ccf(eps[1L,i,], eps[2L,i,], lag.max=maxlagHz, plot=FALSE)
         if (!is.nan(result$acf[1L])) {
           for (j in seq_len(lagtimes2)) {
             meanccorrRealZ[j] = meanccorrRealZ[j] + abs(0.5*log((1+result$acf[j])/(1-result$acf[j])))
@@ -121,7 +121,7 @@ susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogate
             }
           }
           n = n + 1L
-          result = ccf(eps[1L,i,], eps[2L,v,], lag.max=maxlag, plot=FALSE)
+          result = ccf(eps[1L,i,], eps[2L,v,], lag.max=maxlagHz, plot=FALSE)
           if (!is.nan(result$acf[1L])) {
             for (j in seq_len(lagtimes2)) {
               meanccorrPseudoZ[j] = meanccorrPseudoZ[j] + abs(0.5*log((1+result$acf[j])/(1-result$acf[j])))
@@ -139,7 +139,7 @@ susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogate
     } else {
       for (i in seq_len(numberEpochen)) {
         for (h in seq_len(numberEpochen)) {
-          result = ccf(eps[1L,i,], eps[2L,h,], lag.max=maxlag, plot=FALSE)
+          result = ccf(eps[1L,i,], eps[2L,h,], lag.max=maxlagHz, plot=FALSE)
           if (is.nan(result$acf[1L]))
             next
           for (j in seq_len(lagtimes2)) {
@@ -191,7 +191,7 @@ susy = function(x, segment, Hz, maxlag=3L, permutation=FALSE, restrict.surrogate
         nPseudo=nPseudo
       ),
       params = list(
-        segment=segment, numberEpochen=numberEpochen, size=size, maxlag=maxlag, lagtimes2=lagtimes2,
+        segment=segment, numberEpochen=numberEpochen, size=size, maxlag=maxlag, maxlagHz=maxlagHz, lagtimes2=lagtimes2,
         anzahlPseudosProEpoche=anzahlPseudosProEpoche,
         k1=k1, k1NotAbs=k1NotAbs
       )
@@ -232,7 +232,7 @@ plot.susy = function(x, type=c(4, 5), ...) {
     segment = x$params$segment
     anzahlPseudosProEpoche = x$params$anzahlPseudosProEpoche
     numberEpochen = x$params$numberEpochen
-    maxlag = x$params$maxlag
+    maxlagHz = x$params$maxlagHz
     meanccorrReal = x$lagtimes2.data$meanccorrReal
     meanccorrPseudo = x$lagtimes2.data$meanccorrPseudo
     meanccorrRealZ = x$lagtimes2.data$meanccorrRealZ
@@ -247,9 +247,9 @@ plot.susy = function(x, type=c(4, 5), ...) {
         min0 = min(meanccorrReal, meanccorrPseudo)
         max0 = max(meanccorrReal, meanccorrPseudo)
         title0 = sprintf("Synchrony %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
-        plot(seq(from = -maxlag , to = maxlag), meanccorrReal, ylim=c(min0, max0+ 0.19*(max0-min0)), main=title0,
+        plot(seq(from = -maxlagHz , to = maxlagHz), meanccorrReal, ylim=c(min0, max0+ 0.19*(max0-min0)), main=title0,
              xlab="lag", ylab="correlation", type="l", col="green", lwd = 4)
-        lines(seq(from = -maxlag , to = maxlag), meanccorrPseudo, col="red", lwd = 4)
+        lines(seq(from = -maxlagHz , to = maxlagHz), meanccorrPseudo, col="red", lwd = 4)
         legend("topright", pch = c(3), col = c("green", "red"),legend = c("meanccorr", "meanccorr pseudo"))
       } else if (t == 2L) { ## Epochensynchronie nReal nPseudo
         title0 = sprintf("Segment synchronies %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
@@ -261,9 +261,9 @@ plot.susy = function(x, type=c(4, 5), ...) {
         min0 = min(meanccorrRealZ, meanccorrPseudoZ)
         max0 = max(meanccorrRealZ, meanccorrPseudoZ)
         title0 = sprintf("Z-Synchrony %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
-        plot(seq(from = -maxlag , to = maxlag), meanccorrRealZ, ylim=c(min0, max0+ 0.19*(max0-min0)),
+        plot(seq(from = -maxlagHz , to = maxlagHz), meanccorrRealZ, ylim=c(min0, max0+ 0.19*(max0-min0)),
              main=title0, xlab="lag", ylab="correlation", type="l", col="green", lwd = 4)
-        lines(seq(from = -maxlag , to = maxlag), meanccorrPseudoZ, col="red", lwd = 4)
+        lines(seq(from = -maxlagHz , to = maxlagHz), meanccorrPseudoZ, col="red", lwd = 4)
         legend("topright", pch = c(3), col = c("green", "red"),legend = c("Z(meanccorr)", "Z(meanccorr pseudo)"))
       } else if (t == 4L) { ## Zeige die Verteilung der data an
         title0 = sprintf("Time series %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
@@ -275,9 +275,9 @@ plot.susy = function(x, type=c(4, 5), ...) {
         min0 = min(meanccorrRealZNotAbs, meanccorrPseudoZNotAbs)
         max0 = max(meanccorrRealZNotAbs, meanccorrPseudoZNotAbs)
         title0 = sprintf("Z-Synchrony not ABS %s-%s segment: %ss; %s pseudos", variablenname1, variablenname2, segment, anzahlPseudosProEpoche*numberEpochen)
-        plot(seq(from = -maxlag , to = maxlag), meanccorrRealZNotAbs, ylim=c(min0, max0+ 0.19*(max0-min0)),
+        plot(seq(from = -maxlagHz , to = maxlagHz), meanccorrRealZNotAbs, ylim=c(min0, max0+ 0.19*(max0-min0)),
              main=title0, xlab="lag", ylab="correlation", type="l", col="green", lwd = 4)
-        lines(seq(from = -maxlag , to = maxlag), meanccorrPseudoZNotAbs, col="red", lwd = 4)
+        lines(seq(from = -maxlagHz , to = maxlagHz), meanccorrPseudoZNotAbs, col="red", lwd = 4)
         legend("topright", pch = c(3), col = c("green", "red"),legend = c("Z(meanccorr not ABS)", "Z(meanccorr pseudo not ABS)"))
       }
     }
@@ -304,7 +304,7 @@ as.data.frame.susy = function(x, row.names=NULL, optional=FALSE, corr.no.abs=TRU
     segment = x$params$segment
     anzahlPseudosProEpoche = x$params$anzahlPseudosProEpoche
     numberEpochen = x$params$numberEpochen
-    maxlag = x$params$maxlag
+    maxlagHz = x$params$maxlagHz
     k1 = x$params$k1
     k1NotAbs = x$params$k1NotAbs
     lagtimes2 = x$params$lagtimes2
@@ -321,10 +321,10 @@ as.data.frame.susy = function(x, row.names=NULL, optional=FALSE, corr.no.abs=TRU
       100*k1/(length(meanccorrRealZ)),
       numberEpochen,
       (mean(meanccorrRealZ)-mean(meanccorrPseudoZ))/sd(meanccorrPseudoZ),
-      mean(meanccorrRealZ[1:maxlag]),
-      mean(meanccorrRealZ[(maxlag+2):lagtimes2]),
-      (mean(meanccorrRealZ[1:maxlag])-mean(meanccorrPseudoZ[1:maxlag]))/sd(meanccorrPseudoZ[1:maxlag]),
-      (mean(meanccorrRealZ[(maxlag+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlag+2):lagtimes2])
+      mean(meanccorrRealZ[1:maxlagHz]),
+      mean(meanccorrRealZ[(maxlagHz+2):lagtimes2]),
+      (mean(meanccorrRealZ[1:maxlagHz])-mean(meanccorrPseudoZ[1:maxlagHz]))/sd(meanccorrPseudoZ[1:maxlagHz]),
+      (mean(meanccorrRealZ[(maxlagHz+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlagHz+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlagHz+2):lagtimes2])
     )
     if (corr.no.abs) {
       l = c(l, list(
@@ -366,7 +366,7 @@ print.susy = function(x, corr.no.abs=TRUE, legacy=FALSE, ...) {
       segment = x$params$segment
       anzahlPseudosProEpoche = x$params$anzahlPseudosProEpoche
       numberEpochen = x$params$numberEpochen
-      maxlag = x$params$maxlag
+      maxlagHz = x$params$maxlagHz
       k1 = x$params$k1
       k1NotAbs = x$params$k1NotAbs
       lagtimes2 = x$params$lagtimes2
@@ -422,12 +422,12 @@ print.susy = function(x, corr.no.abs=TRUE, legacy=FALSE, ...) {
       cat(numberEpochen,"") #10
       # cat(numberEpochen*(numberEpochen-1),"")
       cat((mean(meanccorrRealZ)-mean(meanccorrPseudoZ))/sd(meanccorrPseudoZ),"")
-      cat(mean(meanccorrRealZ[1:maxlag]),"")
-      cat(mean(meanccorrRealZ[(maxlag+2):lagtimes2]),"") #14
-      # cat(mean(meanccorrPseudoZ[1:maxlag]),"")
-      # cat(mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]),"") #16
-      cat((mean(meanccorrRealZ[1:maxlag])-mean(meanccorrPseudoZ[1:maxlag]))/sd(meanccorrPseudoZ[1:maxlag]),"")
-      cat((mean(meanccorrRealZ[(maxlag+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlag+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlag+2):lagtimes2]),"") #18
+      cat(mean(meanccorrRealZ[1:maxlagHz]),"")
+      cat(mean(meanccorrRealZ[(maxlagHz+2):lagtimes2]),"") #14
+      # cat(mean(meanccorrPseudoZ[1:maxlagHz]),"")
+      # cat(mean(meanccorrPseudoZ[(maxlagHz+2):lagtimes2]),"") #16
+      cat((mean(meanccorrRealZ[1:maxlagHz])-mean(meanccorrPseudoZ[1:maxlagHz]))/sd(meanccorrPseudoZ[1:maxlagHz]),"")
+      cat((mean(meanccorrRealZ[(maxlagHz+2):lagtimes2])-mean(meanccorrPseudoZ[(maxlagHz+2):lagtimes2]))/sd(meanccorrPseudoZ[(maxlagHz+2):lagtimes2]),"") #18
       if (corr.no.abs) {
         cat(mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs >= 0)]),"")
         cat(mean(meanccorrRealZNotAbs[which(meanccorrRealZNotAbs < 0)]),"")
