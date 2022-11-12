@@ -17,7 +17,7 @@ install.packages("SUSY", repos="https://WTschacher.github.io/SUSY")
 Usage
 ----
 
-Note that the following example assumes that the source data are in a flat file and it has particular structure.
+Note that the following example assumes that the source data are in a flat file and it has particular structure (column names in first row, whitespace as field separator, at least 5 columns).
 
 ```r
 library(SUSY)
