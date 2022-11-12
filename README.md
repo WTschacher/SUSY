@@ -17,36 +17,26 @@ install.packages("SUSY", repos="https://WTschacher.github.io/SUSY")
 Usage
 ----
 
+Note that the following example assumes that the source data are in a flat file and it has particular structure.
 
 ```r
 library(SUSY)
 
-## random data
-n = 10000
-data = data.frame(
- var1 = runif(n, 300, 330),
- var2 = runif(n, 300, 330),
- var3 = runif(n, 300, 330),
- var4 = runif(n, 300, 330)
-)
+## read in data from a flat file
+data = read.csv(file.choose(), header=TRUE, sep=" ", na.strings=".")
 
-## compute SUSY for var1-var2
-res = susy(data[, c("var1","var2")], segment=30, Hz=15)
+## compute SUSY for column 2 and column 5
+res = susy(data[, c(2, 5)], segment=30, Hz=15)
 names(res)
 
-## compute SUSY for var2-var3
-res = susy(data[, c("var2","var3")], segment=30, Hz=15)
-names(res)
-
-## compute SUSY for var1-var2 and var3-var4
-res = susy(data, segment=30, Hz=15)
+## compute SUSY for columns 1-2 and 3-4
+res = susy(data[, 1:4], segment=30, Hz=15)
 names(res)
 
 ## print all SUSY computations
 res
 
 ## subset (and print) susy object to single results
-res["var1-var2"]
 res[1]
 
 ## plot all SUSY computations, plot type 1
@@ -58,7 +48,7 @@ plot(res[1], type=c(1,4))
 ## plot only second SUSY computations, plot type 1, 2, 3, 4, 5
 plot(res[2], type=1:5)
 
-## compute SUSY for all permutations of var1, var2, var3 and var4
+## compute SUSY for all permutations of columns
 res = susy(data, segment=30, Hz=15, permutation=TRUE)
 names(res)
 
