@@ -17,13 +17,16 @@ install.packages("SUSY", repos="https://WTschacher.github.io/SUSY")
 Usage
 ----
 
-Note that the following example assumes that the source data are in a flat file and it has particular structure (column names in first row, whitespace as field separator, at least 5 columns).
+Note that the following example assumes that the source data are in a flat file and it has particular structure (column names in first row, whitespace as field separator, at least 5 columns). If you do not have such, then use the command in the comment below to mockup random data.
 
 ```r
 library(SUSY)
 
 ## read in data from a flat file
 data = read.csv(file.choose(), header=TRUE, sep=" ", na.strings=".")
+
+## mockup random data if needed
+#data = as.data.frame(replicate(5, runif(10000, 300, 330)))
 
 ## compute SUSY for column 2 and column 5
 res = susy(data[, c(2, 5)], segment=30, Hz=15)
