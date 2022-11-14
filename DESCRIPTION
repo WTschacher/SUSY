@@ -1,5 +1,5 @@
 Package: SUSY
-Version: 0.0.2
+Version: 0.1.0
 Title: Surrogate Synchrony
 Authors@R: c(
   person("Wolfgang","Tschacher", role=c("aut","cre"), email="wolfgang.tschacher@upd.unibe.ch"),
