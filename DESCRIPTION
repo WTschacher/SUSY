@@ -8,5 +8,5 @@ Authors@R: c(
 Suggests: gtools
 Description: Computes synchrony as windowed cross-correlation based on two-dimensional time series in a text file you can upload. SUSY works as described in Tschacher, Rees & Ramseyer (2014).
 License: GPL-2
-URL: https://wtschacher.github.io/SUSY
+URL: https://wtschacher.github.io/SUSY/
 BugReports: https://github.com/WTschacher/SUSY/issues
