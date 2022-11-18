@@ -1,7 +1,7 @@
 SUSY
 ----
 
-SUSY computes synchrony as windowed cross-correlation based on two-dimensional time series, as described in Tschacher, Rees & Ramseyer (2014).
+SUSY computes synchrony as windowed cross-correlation based on two-dimensional time series, as described in Tschacher & Ramseyer (2020).
 
 [R package website](https://WTschacher.github.io/SUSY)
 
