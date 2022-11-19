@@ -3,7 +3,7 @@ SUSY
 
 SUSY computes synchrony as windowed cross-correlation based on two-dimensional time series, as described in Tschacher & Meier (2020).
 
-[R package website](https://WTschacher.github.io/SUSY)
+[R package website](https://wtschacher.github.io/SUSY/)
 
 ----
 
@@ -11,7 +11,7 @@ Installation
 ----
 
 ```r
-install.packages("SUSY", repos="https://WTschacher.github.io/SUSY")
+install.packages("SUSY", repos="https://wtschacher.github.io/SUSY/")
 ```
 
 Usage
@@ -63,4 +63,4 @@ df = as.data.frame(res)
 write.table(df, file="correlation.txt", sep=",", row.names=FALSE)
 ```
 
-[`susy` function manual](https://WTschacher.github.io/SUSY/reference/susy.html)
+[`susy` function manual](https://wtschacher.github.io/SUSY/reference/susy.html)
