@@ -58,9 +58,9 @@ names(res)
 ## print legacy style
 print(res, legacy=TRUE)
 
-## export to flat file
+## export to flat file via data.frame and write.csv
 df = as.data.frame(res)
-write.table(df, file="correlation.txt", sep=",", row.names=FALSE)
+df
 ```
 
 [`susy` function manual](https://wtschacher.github.io/SUSY/reference/susy.html)
