@@ -10,7 +10,7 @@
 \arguments{
   \item{x}{ A \code{susy} object. }
   \item{corr.no.abs}{ Logical, defaults to \code{TRUE} display correlation without the absolute value. }
-  \item{legacy}{ Logical, defaults to \code{FALSE}, when \code{TRUE} print will produce an output that matches legacy SUSY computation \code{\link{old.susy}}. }
+  \item{legacy}{ Logical, defaults to \code{FALSE}, when \code{TRUE} print will produce an output that matches the output of legacy SUSY implementation. }
   \item{\dots}{ Extra arguments passed to \code{print.data.frame} method. }
 }
 \value{

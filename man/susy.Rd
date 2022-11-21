@@ -2,8 +2,7 @@
 \alias{susy}
 \title{ Surrogate Synchrony }
 \description{
-  Cross-correlations of two time series are computed up to a specific lag in seconds \code{maxlag}. Cross-correlation is done within segment of the time series. The size of segments \code{segment} can be chosen in seconds. Aggregation is then performed by transforming correlations to Fisher's Z, computing mean Z in each segment, then across all segments of the time series. Segment shuffling is used to create surrogate time series, on which the same computations are run. This provides effect sizes \code{ES}. SUSY provides these different synchrony measures for each twin time series: \code{mean Z} and \code{ES of mean Z}; \code{mean absolute_Z} and \code{ES of mean absolute_Z}.\cr
-  Legacy implementation is available at \code{\link{old.susy}}.
+  Cross-correlations of two time series are computed up to a specific lag in seconds \code{maxlag}. Cross-correlation is done within segment of the time series. The size of segments \code{segment} can be chosen in seconds. Aggregation is then performed by transforming correlations to Fisher's Z, computing mean Z in each segment, then across all segments of the time series. Segment shuffling is used to create surrogate time series, on which the same computations are run. This provides effect sizes \code{ES}. SUSY provides these different synchrony measures for each twin time series: \code{mean Z} and \code{ES of mean Z}; \code{mean absolute_Z} and \code{ES of mean absolute_Z}.
 }
 \usage{
 susy(x, segment, Hz, maxlag=3L, permutation=FALSE,
@@ -24,7 +23,7 @@ susy(x, segment, Hz, maxlag=3L, permutation=FALSE,
 \value{
   Object of class \code{susy} is returned. Each cross correlation pair is an element in resulting object.
 }
-\seealso{\code{\link{plot.susy}}, \code{\link{as.data.frame.susy}}, \code{\link{print.susy}}, \code{\link{old.susy}}}
+\seealso{\code{\link{plot.susy}}, \code{\link{as.data.frame.susy}}, \code{\link{print.susy}}}
 \examples{
 n = 1000
 data = data.frame(

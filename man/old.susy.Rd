@@ -2,7 +2,7 @@
 \alias{old.susy}
 \title{ Surrogate Synchrony - legacy}
 \description{
-  This is a legacy function to compute Surrogate Synchrony, please use \code{\link{susy}} function instead. Eventually legacy function may be deprecated in future.\cr\cr
+  An internal function, a legacy implementation to compute Surrogate Synchrony, please use \code{\link{susy}} function instead.\cr
   Cross-correlations are computed up to a specific lag in seconds \code{Maxlag}, then aggregated within a chosen \code{Segment} of e.g. 30s. Aggregation is performed by transforming correlations to Fisher's Z, then computing mean Z in each segment, then across all segments of the time series. Segment shuffling is used to create surrogate time series, on which the same computations are run. This provides effect sizes \code{ES}. \code{File}: The pairs of time series are in the columns of the file, variable names are in the header line. If \code{Automatic} is clicked, the synchrony is computed of all adjacent pairs of columns in the file. If \code{Automatic} is unclicked, you may choose the two columns to be analyzed for synchrony, and two plots are additionally prepared. SUSY provides two different synchrony measures of each twin time series: mean Z and ES of mean Z; mean absolute_Z and ES of mean absolute_Z.
 }
 \usage{
