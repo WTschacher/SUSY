@@ -46,7 +46,4 @@ old.susy(
   }
 }
 \seealso{\code{\link{susy}}}
-\examples{
-#SUSY:::old.susy(zufallsdaten=TRUE, anzahlzufallsdaten=1000, plotid=0, plotid2=0)
-}
-\keyword{ data }
+\keyword{ internal }
