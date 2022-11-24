@@ -11,6 +11,9 @@ Installation
 ----
 
 ```r
+install.packages("SUSY")
+
+## development version
 install.packages("SUSY", repos="https://wtschacher.github.io/SUSY/")
 ```
 
