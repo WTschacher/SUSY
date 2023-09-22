@@ -55,7 +55,7 @@ plot(res[1], type=c(1,4))
 plot(res[2], type=1:5)
 
 ## compute SUSY for all permutations of columns
-res = susy(data, segment=30, Hz=15, permutation=TRUE)
+res = susy(data, segment=30, Hz=15, permutation=TRUE, maxlag=3)
 names(res)
 
 ## print legacy style
