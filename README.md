@@ -32,11 +32,11 @@ data = read.csv(file.choose(), header=TRUE, sep=" ", na.strings=".")
 #data = as.data.frame(replicate(5, runif(10000, 300, 330)))
 
 ## compute SUSY for column 2 and column 5
-res = susy(data[, c(2, 5)], segment=30, Hz=15)
+res = susy(data[, c(2, 5)], segment=30, Hz=15, maxlag=3)
 names(res)
 
 ## compute SUSY for columns 1-2 and 3-4
-res = susy(data[, 1:4], segment=30, Hz=15)
+res = susy(data[, 1:4], segment=30, Hz=15, maxlag=3)
 names(res)
 
 ## print all SUSY computations
